@@ -1,0 +1,44 @@
+<HTML>
+<BODY>
+	
+<canvas width='2800' height='1000' id='hw02'>
+</canvas>
+
+<script>
+
+	var canvas = document.getElementById('hw02');
+	var ctx = canvas.getContext('2d');
+
+	let img = new Image();
+	
+    img.crossOrigin = "Anonymous";
+
+	img.onload = function() {
+
+		ctx.drawImage(img, 0, 0, img.width, img.height);
+		let image_data = ctx.getImageData(0,0, img.width, img.height);
+		
+		var red, green, blue;
+
+		for (var i = 0; i < image_data.data.length; i += 4) {
+		
+			red = image_data.data[i]; 
+			green = image_data.data[i + 1]; 
+			blue = image_data.data[i + 2]; 
+			
+			var srednee = ( red + green + blue ) / 3;
+
+			image_data.data[i] = srednee; 
+			image_data.data[i + 1] = srednee;
+			image_data.data[i + 2] = srednee;
+		}
+
+		ctx.putImageData(image_data, img.width + 25, 0);
+	};
+	
+	img.src = 'https://i.imgur.com/dS7ytLn.png';
+
+</script>
+
+</BODY>
+</HTML>
